@@ -1,0 +1,39 @@
+{
+  "name": "musicians-ui",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "repository": "https://github.com/gregorymanzhur/musicians-ui.git",
+  "author": "Gregory Manzhur",
+  "license": "MIT",
+  "scripts": {
+    "storybook": "start-storybook -p 6006"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.4",
+    "@babel/plugin-proposal-class-properties": "^7.4.4",
+    "@babel/plugin-proposal-object-rest-spread": "^7.4.4",
+    "@babel/preset-env": "^7.4.4",
+    "@babel/preset-react": "^7.0.0",
+    "@babel/preset-typescript": "^7.3.3",
+    "@storybook/addon-info": "^5.0.11",
+    "@storybook/addon-knobs": "^5.0.11",
+    "@storybook/react": "^5.0.11",
+    "@types/color": "^3.0.0",
+    "@types/react": "^16.8.15",
+    "@types/react-dom": "^16.8.4",
+    "@types/storybook__addon-knobs": "^5.0.0",
+    "@types/storybook__react": "^4.0.1",
+    "babel-loader": "^8.0.5",
+    "babel-plugin-emotion": "^10.0.9",
+    "react-docgen-typescript-loader": "^3.1.0",
+    "typescript": "^3.4.5"
+  },
+  "dependencies": {
+    "@emotion/core": "^10.0.10",
+    "@emotion/styled": "^10.0.10",
+    "color": "^3.1.1",
+    "emotion-theming": "^10.0.10",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  }
+}
