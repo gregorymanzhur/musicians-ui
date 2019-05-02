@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-import { StringDict } from "../../common/types";
 import { TextWrapper } from './styled';
 
 export enum TextVariants {
@@ -18,7 +17,7 @@ export enum TextWeights {
   Bold = 'bold',
 }
 
-const defaultTagsDict: StringDict = {
+const defaultTagsDict: Record<TextVariants, string> = {
   heading: 'h1',
   title: 'h2',
   subtitle: 'h3',

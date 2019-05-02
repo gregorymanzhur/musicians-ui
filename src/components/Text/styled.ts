@@ -1,9 +1,8 @@
 import { createElement, FC } from 'react';
 import { styled } from '../../theme';
-import { StringDict } from "../../common/types";
-import { TextProps } from './Text';
+import { TextProps, TextVariants, TextWeights } from './Text';
 
-const fontSizesDict: StringDict = {
+const fontSizesDict: Record<TextVariants, string> = {
   heading: '32px',
   title: '24px',
   subtitle: '16px',
@@ -12,7 +11,7 @@ const fontSizesDict: StringDict = {
   button: '14px',
 };
 
-const lineHeightsDict: StringDict = {
+const lineHeightsDict: Record<TextVariants, string> = {
   heading: '40px',
   title: '30px',
   subtitle: '24px',
@@ -21,7 +20,7 @@ const lineHeightsDict: StringDict = {
   button: '16px',
 };
 
-const weightsDict: StringDict = {
+const weightsDict: Record<TextWeights, string> = {
   regular: 'normal',
   medium: '500',
   bold: 'bold',
