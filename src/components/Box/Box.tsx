@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { StandardProps } from '../commonTypes';
 import { BoxWrapper } from './styled';
 
 export enum BoxSizes {
@@ -11,7 +12,7 @@ export enum BoxSizes {
   XXL = 'xxl',
 }
 
-export interface BoxProps {
+export interface BoxProps extends StandardProps {
   m?: BoxSizes;
   mv?: BoxSizes;
   mh?: BoxSizes;

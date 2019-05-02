@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { StandardProps } from '../commonTypes';
 import { SpinnerWrapper } from './styled';
 
 export enum SpinnerSizes {
@@ -12,7 +13,7 @@ export enum SpinnerColorSchemes {
   Dark = 'dark',
 }
 
-export interface SpinnerProps {
+export interface SpinnerProps extends StandardProps {
   size?: SpinnerSizes;
   colorScheme?: SpinnerColorSchemes;
 }

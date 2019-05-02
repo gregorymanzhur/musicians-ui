@@ -12,11 +12,13 @@ const spinAnimation = keyframes`
 `;
 
 const getColor = (p: SpinnerProps & Themed): string => (
-  p.colorScheme === SpinnerColorSchemes.Light ? p.theme!.core.palette.crimson : 'transparent'
+  p.colorScheme === SpinnerColorSchemes.Light ? p.theme.core.palette.crimson : 'transparent'
 );
 
 const getBackgroundColor = (p: SpinnerProps & Themed): string => (
-  p.colorScheme === SpinnerColorSchemes.Light ? p.theme!.core.palette.crimsonLighten60 : p.theme!.core.palette.crimsonLighten100
+  p.colorScheme === SpinnerColorSchemes.Light
+    ? p.theme.core.palette.crimsonLighten60
+    : p.theme.core.palette.crimsonLighten100
 );
 
 const getDiameter = (p: SpinnerProps & Themed): string => {

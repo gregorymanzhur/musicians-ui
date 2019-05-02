@@ -17,7 +17,7 @@ const lineHeightsDict: Record<TextVariants, string> = {
   subtitle: '24px',
   body: '20px',
   caption: '16px',
-  button: '16px',
+  button: 'normal',
 };
 
 const weightsDict: Record<TextWeights, string> = {
@@ -30,6 +30,7 @@ const weightsDict: Record<TextWeights, string> = {
 export const TextWrapper: FC<TextProps> = styled(({ tag, children, ...props }) =>
   createElement(tag!, props, children))`
 
+  display: flex;
   font-size: ${p => fontSizesDict[p.variant!]};
   line-height: ${p => lineHeightsDict[p.variant!]};
   font-weight: ${p => weightsDict[p.weight!]};

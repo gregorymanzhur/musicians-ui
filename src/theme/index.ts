@@ -8,7 +8,7 @@ export interface Theme {
 }
 
 export interface Themed {
-  theme?: Theme;
+  theme: Theme;
 }
 
 export interface Themes {

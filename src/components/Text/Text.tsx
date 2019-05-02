@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { StandardProps } from '../commonTypes';
 import { TextWrapper } from './styled';
 
 export enum TextVariants {
@@ -26,7 +27,7 @@ const defaultTagsDict: Record<TextVariants, string> = {
   button: 'span',
 };
 
-export interface TextProps {
+export interface TextProps extends StandardProps {
   variant?: TextVariants;
   weight?: TextWeights;
   tag?: string;
