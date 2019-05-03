@@ -13,7 +13,7 @@ const iconsDict: Record<IconTypes, any> = {
   [IconTypes.MD]: mdIcons,
 };
 
-interface IconProps extends StandardProps {
+export interface IconProps extends StandardProps {
   type: IconTypes;
   title: string;
 }

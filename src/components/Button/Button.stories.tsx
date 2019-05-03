@@ -1,20 +1,8 @@
 import React from 'react';
-import { FaCheck } from 'react-icons/fa';
 import { storiesOf } from '@storybook/react';
 import { select } from '@storybook/addon-knobs';
-import { Global, css } from '../../theme';
-import { Base } from '..';
+import { Base, IconTypes } from '..';
 import { Button, ButtonVariants } from '.';
-
-const customStyles = css`
-  .squared {
-    border-radius: 0 !important;
-  }
-  
-  .b-green {
-    background-color: green !important;
-  }
-`;
 
 const stories = storiesOf('Button', module);
 
@@ -33,21 +21,31 @@ stories
       </Button>
     </Base>
   ))
-  .add('Custom class', () => (
+  .add('Icon', () => (
     <Base>
-      <Global styles={customStyles} />
       <Button
         variant={select('variant', Object.values(ButtonVariants), ButtonVariants.Primary)}
-        className="b-green squared"
+        iconLeft={{ type: IconTypes.FA, title: "FaCheck" }}
+      />
+    </Base>
+  ))
+  .add('Icon left', () => (
+    <Base>
+      <Button
+        variant={select('variant', Object.values(ButtonVariants), ButtonVariants.Primary)}
+        iconLeft={{ type: IconTypes.FA, title: "FaCheck" }}
       >
-        Кнопка
+        Кнопка с иконкой слева
       </Button>
     </Base>
   ))
-  .add('Icon', () => (
+  .add('Icon right', () => (
     <Base>
-      <Button variant={select('variant', Object.values(ButtonVariants), ButtonVariants.Primary)} >
-        <FaCheck />
+      <Button
+        variant={select('variant', Object.values(ButtonVariants), ButtonVariants.Primary)}
+        iconRight={{ type: IconTypes.FA, title: "FaCheck" }}
+      >
+        Кнопка с иконкой справа
       </Button>
     </Base>
   ))
