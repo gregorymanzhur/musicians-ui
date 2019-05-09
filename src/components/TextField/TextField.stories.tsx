@@ -2,7 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { select } from '@storybook/addon-knobs';
 import { Base, IconTypes } from '..';
-import { TextField, TextFieldVariants } from '.';
+import { TextField, TextFieldVariants, PhoneField, PasswordField } from '.';
 
 const stories = storiesOf('TextField', module);
 
@@ -75,6 +75,22 @@ stories
         label="Masked text field (XXXX-XXXX, when X - digit)"
         variant={select('variant', Object.values(TextFieldVariants), TextFieldVariants.Outlined )}
         mask={[/\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/,]}
+      />
+    </Base>
+  ))
+  .add('Wrappers: Phone field', () => (
+    <Base>
+      <PhoneField
+        label="Phone field"
+        variant={select('variant', Object.values(TextFieldVariants), TextFieldVariants.Outlined )}
+      />
+    </Base>
+  ))
+  .add('Wrappers: Password field', () => (
+    <Base>
+      <PasswordField
+        label="Password field"
+        variant={select('variant', Object.values(TextFieldVariants), TextFieldVariants.Outlined )}
       />
     </Base>
   ));

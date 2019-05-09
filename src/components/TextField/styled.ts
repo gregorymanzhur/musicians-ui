@@ -104,9 +104,11 @@ export const InputWrapper = styled.input<TextFieldProps & { ref: string & ((inpu
 
 export const IconWrapper = styled(Box)<Partial<TextFieldProps>>`
   position: absolute;
-  color: ${p => p.theme.core.palette.grayLighten30};
+  color: ${p => p.theme.core.palette.grayLighten50};
   
   top: 10px;
   left: ${p => p.iconLeft ? '13px' : 'auto'};
   right: ${p => p.iconRight ? '13px' : 'auto'};
+  
+  cursor: ${p => (p.iconLeft && p.iconLeft.onClick) || (p.iconRight && p.iconRight.onClick) ? 'pointer' : 'default'};
 `;
