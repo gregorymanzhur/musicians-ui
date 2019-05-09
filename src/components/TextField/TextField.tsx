@@ -10,21 +10,22 @@ export enum TextFieldVariants {
 
 export interface TextFieldProps extends StandardProps {
   variant?: TextFieldVariants;
-  disabled?: boolean;
   label: string;
   value?: string;
-  required?: boolean;
   type?: string;
+  required?: boolean;
+  disabled?: boolean;
+  multiline?: boolean;
 
   iconLeft?: IconProps;
   iconRight?: IconProps;
 
-  onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
-  onFocus?: (event: FocusEvent<HTMLInputElement>) => void;
-  onBlur?: (event: FocusEvent<HTMLInputElement>) => void;
-  onKeyPress?: (event: KeyboardEvent<HTMLInputElement>) => void;
-  onKeyUp?: (event: KeyboardEvent<HTMLInputElement>) => void;
-  onKeyDown?: (event: KeyboardEvent<HTMLInputElement>) => void;
+  onChange?: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  onFocus?: (event: FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  onBlur?: (event: FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  onKeyPress?: (event: KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  onKeyUp?: (event: KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  onKeyDown?: (event: KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
 }
 
 interface TextFieldState {
@@ -36,12 +37,15 @@ export class TextField extends Component<TextFieldProps, TextFieldState> {
     variant: TextFieldVariants.Outlined,
     disabled: false,
     required: false,
+    multiline: false,
     type: 'text',
   };
 
   state = {
     value: this.props.value || '',
   };
+
+  InputComponent = this.props.multiline ? InputWrapper.withComponent('textarea') : InputWrapper;
 
   handleChange = (event: ChangeEvent<any>) => {
     this.setState({ value: event.target.value });
@@ -51,12 +55,12 @@ export class TextField extends Component<TextFieldProps, TextFieldState> {
   };
 
   render() {
-    const { onChange, ...restProps } = this.props;
+    const { onChange, required, ...restProps } = this.props;
     const { value } = this.state;
 
     return (
       <Wrapper disabled={restProps.disabled}>
-        <InputWrapper onChange={this.handleChange} value={value} {...restProps} />
+        <this.InputComponent onChange={this.handleChange} value={value} {...restProps} />
         {restProps.iconLeft && (
           <IconWrapper variant={restProps.variant} iconLeft={restProps.iconLeft}>
             <Icon {...restProps.iconLeft} />
@@ -67,7 +71,13 @@ export class TextField extends Component<TextFieldProps, TextFieldState> {
             <Icon {...restProps.iconRight} />
           </IconWrapper>
         )}
-        <LabelWrapper variant={restProps.variant} {...restProps}>{restProps.label}</LabelWrapper>
+        <LabelWrapper
+          variant={restProps.variant}
+          iconLeft={restProps.iconLeft}
+          required={required}
+        >
+          {restProps.label}
+        </LabelWrapper>
       </Wrapper>
     );
   }

@@ -15,6 +15,15 @@ stories
       />
     </Base>
   ))
+  .add('With value', () => (
+    <Base>
+      <TextField
+        label="Base text field"
+        variant={select('variant', Object.values(TextFieldVariants), TextFieldVariants.Outlined )}
+        value="Some text"
+      />
+    </Base>
+  ))
   .add('With left icon', () => (
     <Base>
       <TextField
@@ -49,6 +58,24 @@ stories
         label="Disabled text field"
         variant={select('variant', Object.values(TextFieldVariants), TextFieldVariants.Outlined )}
         disabled
+      />
+    </Base>
+  ))
+  .add('Required', () => (
+    <Base>
+      <TextField
+        label="Required text field"
+        variant={select('variant', Object.values(TextFieldVariants), TextFieldVariants.Outlined )}
+        required
+      />
+    </Base>
+  ))
+  .add('Multiline', () => (
+    <Base>
+      <TextField
+        label="Multiline text field"
+        variant={select('variant', Object.values(TextFieldVariants), TextFieldVariants.Outlined )}
+        multiline
       />
     </Base>
   ));
