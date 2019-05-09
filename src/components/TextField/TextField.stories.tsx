@@ -42,16 +42,6 @@ stories
       />
     </Base>
   ))
-  .add('With left and right icon', () => (
-    <Base>
-      <TextField
-        label="Text field with left and right icon"
-        variant={select('variant', Object.values(TextFieldVariants), TextFieldVariants.Outlined )}
-        iconRight={{ type: IconTypes.FA, title: "FaCheck" }}
-        iconLeft={{ type: IconTypes.FA, title: "FaApple" }}
-      />
-    </Base>
-  ))
   .add('Disabled', () => (
     <Base>
       <TextField
@@ -76,6 +66,15 @@ stories
         label="Multiline text field"
         variant={select('variant', Object.values(TextFieldVariants), TextFieldVariants.Outlined )}
         multiline
+      />
+    </Base>
+  ))
+  .add('Masked', () => (
+    <Base>
+      <TextField
+        label="Masked text field (XXXX-XXXX, when X - digit)"
+        variant={select('variant', Object.values(TextFieldVariants), TextFieldVariants.Outlined )}
+        mask={[/\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/,]}
       />
     </Base>
   ));

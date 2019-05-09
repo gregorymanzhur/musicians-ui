@@ -1,6 +1,7 @@
 import React, { Component, ChangeEvent, FocusEvent, KeyboardEvent } from 'react';
 import { StandardProps } from '../commonTypes';
 import { Icon, IconProps } from '../Icon';
+import { MaskedInput } from './MaskedInput';
 import { Wrapper, InputWrapper, LabelWrapper, IconWrapper } from './styled';
 
 export enum TextFieldVariants {
@@ -16,6 +17,7 @@ export interface TextFieldProps extends StandardProps {
   required?: boolean;
   disabled?: boolean;
   multiline?: boolean;
+  mask?: (string | RegExp)[] | false;
 
   iconLeft?: IconProps;
   iconRight?: IconProps;
@@ -38,6 +40,7 @@ export class TextField extends Component<TextFieldProps, TextFieldState> {
     disabled: false,
     required: false,
     multiline: false,
+    mask: false,
     type: 'text',
   };
 
@@ -55,12 +58,21 @@ export class TextField extends Component<TextFieldProps, TextFieldState> {
   };
 
   render() {
-    const { onChange, required, ...restProps } = this.props;
+    const { onChange, required, mask, ...restProps } = this.props;
     const { value } = this.state;
 
     return (
       <Wrapper disabled={restProps.disabled}>
-        <this.InputComponent onChange={this.handleChange} value={value} {...restProps} />
+        <MaskedInput
+          mask={mask!}
+          guide={false}
+          onChange={this.handleChange}
+          value={value}
+          {...restProps}
+          render={(ref: string & ((inputElement: HTMLElement) => string), props: TextFieldProps) => (
+            <this.InputComponent ref={ref} {...props} value={value} />
+          )}
+        />
         {restProps.iconLeft && (
           <IconWrapper variant={restProps.variant} iconLeft={restProps.iconLeft}>
             <Icon {...restProps.iconLeft} />

@@ -78,7 +78,7 @@ const inputFilledStyle = (props: TextFieldProps & Themed) => css`
   }
 `;
 
-export const InputWrapper = styled.input<TextFieldProps>`
+export const InputWrapper = styled.input<TextFieldProps & { ref: string & ((inputElement: HTMLElement) => string) }>`
   width: 100%;
   height: ${p => p.multiline ? '80px' : '40px'};
   outline: none;
