@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, MouseEvent } from 'react'
 import * as faIcons from 'react-icons/fa';
 import * as mdIcons from 'react-icons/md';
 import { StandardProps } from '../commonTypes';
@@ -16,6 +16,7 @@ const iconsDict: Record<IconTypes, any> = {
 export interface IconProps extends StandardProps {
   type: IconTypes;
   title: string;
+  onClick?: (event: MouseEvent<HTMLInputElement>) => void;
 }
 
 export const Icon: FC<IconProps> = ({ type, title }) => {

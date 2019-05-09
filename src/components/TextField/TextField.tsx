@@ -1,6 +1,7 @@
 import React, { Component, ChangeEvent, FocusEvent, KeyboardEvent } from 'react';
 import { StandardProps } from '../commonTypes';
-import { Wrapper, InputWrapper, LabelWrapper } from './styled';
+import { Icon, IconProps } from '../Icon';
+import { Wrapper, InputWrapper, LabelWrapper, IconWrapper } from './styled';
 
 export enum TextFieldVariants {
   Outlined = 'outlined',
@@ -10,17 +11,20 @@ export enum TextFieldVariants {
 export interface TextFieldProps extends StandardProps {
   variant?: TextFieldVariants;
   disabled?: boolean;
-  label?: string;
+  label: string;
   value?: string;
   required?: boolean;
   type?: string;
 
-  onChange?: (event: ChangeEvent<any>) => void;
-  onFocus?: (event: FocusEvent<any>) => void;
-  onBlur?: (event: FocusEvent<any>) => void;
-  onKeyPress?: (event: KeyboardEvent<any>) => void;
-  onKeyUp?: (event: KeyboardEvent<any>) => void;
-  onKeyDown?: (event: KeyboardEvent<any>) => void;
+  iconLeft?: IconProps;
+  iconRight?: IconProps;
+
+  onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
+  onFocus?: (event: FocusEvent<HTMLInputElement>) => void;
+  onBlur?: (event: FocusEvent<HTMLInputElement>) => void;
+  onKeyPress?: (event: KeyboardEvent<HTMLInputElement>) => void;
+  onKeyUp?: (event: KeyboardEvent<HTMLInputElement>) => void;
+  onKeyDown?: (event: KeyboardEvent<HTMLInputElement>) => void;
 }
 
 interface TextFieldState {
@@ -47,13 +51,23 @@ export class TextField extends Component<TextFieldProps, TextFieldState> {
   };
 
   render() {
-    const { label, onChange, ...restProps } = this.props;
+    const { onChange, ...restProps } = this.props;
     const { value } = this.state;
 
     return (
-      <Wrapper>
+      <Wrapper disabled={restProps.disabled}>
         <InputWrapper onChange={this.handleChange} value={value} {...restProps} />
-        <LabelWrapper variant={restProps.variant}>{label}</LabelWrapper>
+        {restProps.iconLeft && (
+          <IconWrapper variant={restProps.variant} iconLeft={restProps.iconLeft}>
+            <Icon {...restProps.iconLeft} />
+          </IconWrapper>
+        )}
+        {restProps.iconRight && (
+          <IconWrapper variant={restProps.variant} iconRight={restProps.iconRight}>
+            <Icon {...restProps.iconRight} />
+          </IconWrapper>
+        )}
+        <LabelWrapper variant={restProps.variant} {...restProps}>{restProps.label}</LabelWrapper>
       </Wrapper>
     );
   }

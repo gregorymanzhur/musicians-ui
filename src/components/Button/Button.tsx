@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, MouseEvent } from 'react';
 import { StandardProps } from '../commonTypes';
 import { ButtonWrapper } from './styled';
 import { Text, TextVariants, Spinner, SpinnerSizes, SpinnerColorSchemes, Box, BoxSizes, Icon, IconProps } from '..';
@@ -16,6 +16,8 @@ export interface ButtonProps extends StandardProps {
   loading?: boolean;
   iconLeft?: IconProps;
   iconRight?: IconProps;
+
+  onClick?: (event: MouseEvent<HTMLButtonElement>) => void;
 }
 
 export const Button: FC<ButtonProps> = ({ children, iconLeft, iconRight, ...restProps }) => (

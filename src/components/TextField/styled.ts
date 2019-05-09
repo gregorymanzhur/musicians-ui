@@ -1,18 +1,21 @@
 import { css, styled, Themed } from '../../theme';
+import { Box } from '../Box';
 import { TextFieldProps, TextFieldVariants } from './TextField';
 
-export const Wrapper = styled.label`
+export const Wrapper = styled.label<Pick<TextFieldProps, 'disabled'>>`
   position: relative;
+  pointer-events: ${p => p.disabled ? 'none' : 'all'};
+  opacity: ${p => p.disabled ? 0.5 : 1};
 `;
 
 const labelOutlinedStyle = (props: TextFieldProps & Themed) => css`
   top: 1px;
-  left: 13px;
+  left: ${props.iconLeft ? '36px' : '13px'};
   background-color: ${props.theme.core.palette.grayLighten100};
 `;
-const labelFilledStyle = () => css`
+const labelFilledStyle = (props: TextFieldProps & Themed) => css`
   top: -7px;
-  left: 13px;
+  left: ${props.iconLeft ? '36px' : '13px'};
   background-color: transparent;
 `;
 
@@ -30,7 +33,7 @@ export const LabelWrapper = styled.span<TextFieldProps>`
 
 const upperLabelStyle = (props: TextFieldProps & Themed) => css`
   top: ${props.variant === TextFieldVariants.Filled ? '-16px' : '-17px'};
-  left: 9px;
+  left: ${props.iconLeft ? '32px' : '9px'};
   font-size: 12px;
   line-height: 16px;
   letter-spacing: 0.4px;
@@ -42,7 +45,7 @@ const inputOutlinedStyle = (props: TextFieldProps & Themed) => css`
   border: 1px solid ${props.theme.core.palette.grayLighten40};
   border-radius: 4px;
   background-color: ${props.theme.core.palette.grayLighten100};
-  padding: 0 12px;
+  padding: 0 ${props.iconRight ? '35px' : '12px'} 0 ${props.iconLeft ? '35px' : '12px'};
   
   &:hover {
     border: 1px solid ${props.theme.core.palette.gray};
@@ -57,7 +60,7 @@ const inputFilledStyle = (props: TextFieldProps & Themed) => css`
   border: none;
   border-bottom: 1px solid ${props.theme.core.palette.grayLighten40};
   background-color: ${props.theme.core.palette.grayLighten90};
-  padding: 17px 12px 0 12px;
+  padding: 17px ${props.iconRight ? '35px' : '12px'} 0 ${props.iconLeft ? '35px' : '12px'};;
   
   &:hover {
     border-bottom: 1px solid ${props.theme.core.palette.gray};
@@ -80,11 +83,20 @@ export const InputWrapper = styled.input<TextFieldProps>`
   
   ${p => p.variant === TextFieldVariants.Filled ? inputFilledStyle : inputOutlinedStyle};
 
-  &:focus ~ * {
+  &:focus ~ span {
     ${upperLabelStyle};
     color: ${p => p.theme.core.palette.crimson};
   }
-  & ~ * {
+  & ~ span {
     ${p => p.value && upperLabelStyle};
   }
+`;
+
+export const IconWrapper = styled(Box)<Partial<TextFieldProps>>`
+  position: absolute;
+  color: ${p => p.theme.core.palette.grayLighten30};
+  
+  top: ${p => p.variant === TextFieldVariants.Filled ? '-7px' : '1px'};
+  left: ${p => p.iconLeft ? '13px' : 'auto'};
+  right: ${p => p.iconRight ? '13px' : 'auto'};
 `;
