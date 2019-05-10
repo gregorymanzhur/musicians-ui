@@ -34,10 +34,6 @@ export interface BoxProps extends StandardProps {
   flexDirection?: 'row' | 'column';
 }
 
-export const Box: FC<BoxProps> = ({ children, ...restProps }) => (
-  <BoxWrapper {...restProps}>{children}</BoxWrapper>
+export const Box: FC<BoxProps> = ({ children, flexDirection = 'column', ...restProps }) => (
+  <BoxWrapper flexDirection={flexDirection} {...restProps}>{children}</BoxWrapper>
 );
-
-Box.defaultProps = {
-  flexDirection: 'column',
-};

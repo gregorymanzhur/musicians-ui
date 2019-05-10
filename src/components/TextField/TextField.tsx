@@ -1,4 +1,4 @@
-import React, { Component, ChangeEvent, FocusEvent, KeyboardEvent } from 'react';
+import React, { FC, ChangeEvent, FocusEvent, KeyboardEvent, useState, useMemo, useCallback } from 'react';
 
 import { StandardProps } from '../commonTypes';
 import { Icon, IconProps } from '../Icon';
@@ -32,69 +32,82 @@ export interface TextFieldProps extends StandardProps {
   onKeyDown?: (event: KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
 }
 
-interface TextFieldState {
-  readonly value: string;
-}
+export const TextField: FC<TextFieldProps> = ({
+  variant = TextFieldVariants.Outlined,
+  label,
+  type = 'text',
+  required = false,
+  disabled = false,
+  multiline = false,
+  mask = false,
+  pipe,
+  iconLeft,
+  iconRight,
+  onChange,
+  onFocus,
+  onBlur,
+  onKeyPress,
+  onKeyDown,
+  onKeyUp,
+  value: propsValue,
+}) => {
+  const [value, setValue] = useState<string>(propsValue || '' );
 
-export class TextField extends Component<TextFieldProps, TextFieldState> {
-  static defaultProps: Partial<TextFieldProps> = {
-    variant: TextFieldVariants.Outlined,
-    disabled: false,
-    required: false,
-    multiline: false,
-    mask: false,
-    type: 'text',
-  };
+  const InputComponent = useMemo(
+    () => multiline ? InputWrapper.withComponent('textarea') : InputWrapper,
+    [multiline],
+  );
 
-  state = {
-    value: this.props.value || '',
-  };
+  const handleChange = useCallback(
+    (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      setValue(event.target.value);
+      if (onChange) { onChange(event); }
+    },
+    [],
+  );
 
-  InputComponent = this.props.multiline ? InputWrapper.withComponent('textarea') : InputWrapper;
-
-  handleChange = (event: ChangeEvent<any>) => {
-    this.setState({ value: event.target.value });
-    if (this.props.onChange) {
-      this.props.onChange(event);
-    }
-  };
-
-  render() {
-    const { onChange, required, mask, pipe, ...restProps } = this.props;
-    const { value } = this.state;
-
-    return (
-      <Wrapper disabled={restProps.disabled}>
-        <MaskedInput
-          mask={mask!}
-          pipe={pipe}
-          guide={false}
-          keepCharPositions
-          onChange={this.handleChange}
-          value={value}
-          {...restProps}
-          render={(ref: string & ((inputElement: HTMLElement) => string), props: TextFieldProps) => (
-            <this.InputComponent ref={ref} {...props} value={value} />
-          )}
-        />
-        {restProps.iconLeft && (
-          <IconWrapper variant={restProps.variant} iconLeft={restProps.iconLeft}>
-            <Icon {...restProps.iconLeft} />
-          </IconWrapper>
+  return (
+    <Wrapper disabled={disabled}>
+      <MaskedInput
+        mask={mask}
+        pipe={pipe}
+        guide={false}
+        keepCharPositions
+        onChange={handleChange}
+        value={value}
+        disabled={disabled}
+        onFocus={onFocus}
+        onBlur={onBlur}
+        onKeyDown={onKeyDown}
+        onKeyUp={onKeyUp}
+        onKeyPress={onKeyPress}
+        type={type}
+        defaultValue={undefined}
+        render={(ref: string & ((inputElement: HTMLElement) => string), props: TextFieldProps) => (
+          <InputComponent
+            ref={ref}
+            multiline={multiline}
+            iconLeft={iconLeft}
+            iconRight={iconRight}
+            variant={variant}
+            value={value}
+            {...props}
+          />
         )}
-        {restProps.iconRight && (
-          <IconWrapper variant={restProps.variant} iconRight={restProps.iconRight}>
-            <Icon {...restProps.iconRight} />
-          </IconWrapper>
-        )}
-        <LabelWrapper
-          variant={restProps.variant}
-          iconLeft={restProps.iconLeft}
-          required={required}
-        >
-          {restProps.label}
-        </LabelWrapper>
-      </Wrapper>
-    );
-  }
-}
+      />
+      {iconLeft && (
+        <IconWrapper variant={variant} iconLeft={iconLeft}>
+          <Icon {...iconLeft} />
+        </IconWrapper>
+      )}
+      {iconRight && (
+        <IconWrapper variant={variant} iconRight={iconRight}>
+          <Icon {...iconRight} />
+        </IconWrapper>
+      )}
+      <LabelWrapper variant={variant} iconLeft={iconLeft} required={required}>
+        {label}
+      </LabelWrapper>
+    </Wrapper>
+  );
+};

@@ -33,11 +33,6 @@ export interface TextProps extends StandardProps {
   tag?: string;
 }
 
-export const Text: FC<TextProps> = ({ children, tag, variant, weight }) => (
+export const Text: FC<TextProps> = ({ children, tag, variant = TextVariants.Body, weight = TextWeights.Regular }) => (
   <TextWrapper tag={tag || defaultTagsDict[variant!]} variant={variant} weight={weight}>{children}</TextWrapper>
 );
-
-Text.defaultProps = {
-  variant: TextVariants.Body,
-  weight: TextWeights.Regular,
-};
