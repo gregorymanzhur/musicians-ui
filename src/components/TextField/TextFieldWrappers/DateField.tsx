@@ -10,8 +10,8 @@ export interface DateFieldProps extends Omit<TextFieldProps, 'mask'> {
 }
 
 export const DateField: FC<DateFieldProps> = ({ minYear, maxYear, ...restProps }) => {
-  const autoCorrectedDatePipe = useMemo<Pipe>(() =>
-    createAutoCorrectedDatePipe('dd/mm/yyyy', { minYear, maxYear }),
+  const autoCorrectedDatePipe = useMemo<Pipe>(
+    () => createAutoCorrectedDatePipe('dd/mm/yyyy', { minYear, maxYear }),
     [minYear, maxYear],
   );
 

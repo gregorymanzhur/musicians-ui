@@ -14,8 +14,8 @@ export const NumberField: FC<NumberFieldProps> = ({
   allowNegative = false,
   ...restProps
 }) => {
-  const numberMask = useMemo<Mask>(() =>
-    createNumberMask({
+  const numberMask = useMemo<Mask>(
+    () => createNumberMask({
       prefix: '',
       includeThousandsSeparator: false,
       decimalLimit: null,

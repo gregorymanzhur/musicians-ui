@@ -22,8 +22,8 @@ export interface CurrencyFieldProps extends Omit<TextFieldProps, 'mask' | 'iconL
 }
 
 export const CurrencyField: FC<CurrencyFieldProps> = ({ currency = CurrencyTypes.Ruble, ...restProps }) => {
-  const currencyMask = useMemo<Mask>(() =>
-    createNumberMask({
+  const currencyMask = useMemo<Mask>(
+    () => createNumberMask({
       prefix: '',
       allowDecimal: true,
       thousandsSeparatorSymbol: currency === CurrencyTypes.Ruble ? ' ' : ',',

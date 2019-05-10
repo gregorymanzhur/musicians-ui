@@ -8,7 +8,10 @@ export interface PasswordFieldProps extends Omit<TextFieldProps, 'type' | 'iconL
 export const PasswordField: FC<PasswordFieldProps> = props => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
 
-  const toggleVisibility = useCallback(() => setIsVisible(prevIsVisible => !prevIsVisible), []);
+  const toggleVisibility = useCallback(
+    () => setIsVisible(prevIsVisible => !prevIsVisible),
+    [],
+  );
 
   return (
     <TextField
