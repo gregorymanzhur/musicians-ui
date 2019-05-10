@@ -2,7 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { select } from '@storybook/addon-knobs';
 import { Base, IconTypes } from '..';
-import { TextField, TextFieldVariants, PhoneField, PasswordField, DateField } from '.';
+import { TextField, TextFieldVariants, PhoneField, PasswordField, DateField, NumberField } from '.';
 
 const stories = storiesOf('TextField', module);
 
@@ -98,6 +98,14 @@ stories
     <Base>
       <DateField
         label="Date field"
+        variant={select('variant', Object.values(TextFieldVariants), TextFieldVariants.Outlined )}
+      />
+    </Base>
+  ))
+  .add('Wrappers: Number field', () => (
+    <Base>
+      <NumberField
+        label="Number field"
         variant={select('variant', Object.values(TextFieldVariants), TextFieldVariants.Outlined )}
       />
     </Base>
