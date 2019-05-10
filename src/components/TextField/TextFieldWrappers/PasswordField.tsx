@@ -1,34 +1,24 @@
-import React, { Component } from 'react';
+import React, { FC, useState, useCallback } from 'react';
 import { Omit } from '../../../helpers/types';
 import { IconTypes } from '../../Icon';
 import { TextField, TextFieldProps } from '../TextField';
 
 export interface PasswordFieldProps extends Omit<TextFieldProps, 'type' | 'iconLeft' | 'iconRight'> {}
 
-interface PasswordFieldState {
-  readonly isVisible: boolean;
-}
+export const PasswordField: FC<PasswordFieldProps> = props => {
+  const [isVisible, setIsVisible] = useState<boolean>(false);
 
-export class PasswordField extends Component<PasswordFieldProps, PasswordFieldState> {
-  state: PasswordFieldState = {
-    isVisible: false,
-  };
+  const toggleVisibility = useCallback(() => setIsVisible(prevIsVisible => !prevIsVisible), []);
 
-  togglePasswordVisibility = () => this.setState({ isVisible: !this.state.isVisible });
-
-  render() {
-    const { isVisible } = this.state;
-
-    return (
-      <TextField
-        type={isVisible ? 'text' : 'password'}
-        iconRight={{
-          type: IconTypes.FA,
-          title: isVisible ? 'FaEye' : 'FaEyeSlash',
-          onClick: this.togglePasswordVisibility,
-        }}
-        {...this.props}
-      />
-    )
-  }
-}
+  return (
+    <TextField
+      type={isVisible ? 'text' : 'password'}
+      iconRight={{
+        type: IconTypes.FA,
+        title: isVisible ? 'FaEye' : 'FaEyeSlash',
+        onClick: toggleVisibility,
+      }}
+      {...props}
+    />
+  )
+};

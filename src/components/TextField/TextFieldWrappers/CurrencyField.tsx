@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { FC, useMemo } from 'react';
 import createNumberMask from 'text-mask-addons/dist/createNumberMask';
 import { Omit } from '../../../helpers/types';
 import { IconTypes } from '../../Icon';
@@ -11,36 +11,31 @@ export enum CurrencyTypes {
   Euro = 'euro',
 }
 
+const iconTitlesDict: Record<CurrencyTypes, string> = {
+  [CurrencyTypes.Ruble]: 'FaRubleSign',
+  [CurrencyTypes.Dollar]: 'FaDollarSign',
+  [CurrencyTypes.Euro]: 'FaEuroSign',
+};
+
 export interface CurrencyFieldProps extends Omit<TextFieldProps, 'mask' | 'iconLeft' | 'iconRight'> {
   currency?: CurrencyTypes;
 }
 
-export class CurrencyField extends Component<CurrencyFieldProps> {
-  static defaultProps: Partial<CurrencyFieldProps> = {
-    currency: CurrencyTypes.Ruble,
-  };
+export const CurrencyField: FC<CurrencyFieldProps> = ({ currency = CurrencyTypes.Ruble, ...restProps }) => {
+  const currencyMask = useMemo<Mask>(() =>
+    createNumberMask({
+      prefix: '',
+      allowDecimal: true,
+      thousandsSeparatorSymbol: currency === CurrencyTypes.Ruble ? ' ' : ',',
+    }),
+    [currency],
+  );
 
-  iconTitlesDict: Record<CurrencyTypes, string> = {
-    [CurrencyTypes.Ruble]: 'FaRubleSign',
-    [CurrencyTypes.Dollar]: 'FaDollarSign',
-    [CurrencyTypes.Euro]: 'FaEuroSign',
-  };
-
-  currencyMask: Mask = createNumberMask({
-    prefix: '',
-    allowDecimal: true,
-    thousandsSeparatorSymbol: this.props.currency === CurrencyTypes.Ruble ? ' ' : ',',
-  });
-
-  render() {
-    const { currency } = this.props;
-
-    return (
-      <TextField
-        iconLeft={{ type: IconTypes.FA, title: this.iconTitlesDict[currency!] }}
-        mask={this.currencyMask}
-        {...this.props}
-      />
-    );
-  }
-}
+  return (
+    <TextField
+      iconLeft={{ type: IconTypes.FA, title: iconTitlesDict[currency!] }}
+      mask={currencyMask}
+      {...restProps}
+    />
+  );
+};

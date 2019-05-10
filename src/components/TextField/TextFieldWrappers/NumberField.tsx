@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { FC, useMemo } from 'react';
 import createNumberMask from 'text-mask-addons/dist/createNumberMask';
 import { Omit } from '../../../helpers/types';
 import { Mask } from '../MaskedInput';
@@ -9,26 +9,26 @@ export interface NumberFieldProps extends Omit<TextFieldProps, 'mask' | 'iconLef
   allowNegative?: boolean;
 }
 
-export class NumberField extends Component<NumberFieldProps> {
-  static defaultProps: Partial<NumberFieldProps> = {
-    allowDecimal: false,
-    allowNegative: false,
-  };
+export const NumberField: FC<NumberFieldProps> = ({
+  allowDecimal = false,
+  allowNegative = false,
+  ...restProps
+}) => {
+  const numberMask = useMemo<Mask>(() =>
+    createNumberMask({
+      prefix: '',
+      includeThousandsSeparator: false,
+      decimalLimit: null,
+      allowDecimal: allowDecimal,
+      allowNegative: allowNegative,
+    }),
+    [allowDecimal, allowNegative],
+  );
 
-  numberMask: Mask = createNumberMask({
-    prefix: '',
-    includeThousandsSeparator: false,
-    decimalLimit: null,
-    allowDecimal: this.props.allowDecimal,
-    allowNegative: this.props.allowNegative,
-  });
-
-  render() {
-    return (
-      <TextField
-        mask={this.numberMask}
-        {...this.props}
-      />
-    );
-  }
-}
+  return (
+    <TextField
+      mask={numberMask}
+      {...restProps}
+    />
+  );
+};
