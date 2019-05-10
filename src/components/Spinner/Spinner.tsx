@@ -24,4 +24,3 @@ export const Spinner: FC<SpinnerProps> = ({
 }) => (
   <SpinnerWrapper size={size} colorScheme={colorScheme} />
 );
-
