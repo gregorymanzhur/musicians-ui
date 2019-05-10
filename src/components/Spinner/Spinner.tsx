@@ -18,11 +18,10 @@ export interface SpinnerProps extends StandardProps {
   colorScheme?: SpinnerColorSchemes;
 }
 
-export const Spinner: FC<SpinnerProps> = ({ size, colorScheme }) => (
+export const Spinner: FC<SpinnerProps> = ({
+  size = SpinnerSizes.Medium,
+  colorScheme = SpinnerColorSchemes.Light,
+}) => (
   <SpinnerWrapper size={size} colorScheme={colorScheme} />
 );
 
-Spinner.defaultProps = {
-  size: SpinnerSizes.Medium,
-  colorScheme: SpinnerColorSchemes.Light,
-};
