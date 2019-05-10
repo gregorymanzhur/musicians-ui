@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import createNumberMask from 'text-mask-addons/dist/createNumberMask';
 import { Omit } from '../../../helpers/types';
+import { Mask } from '../MaskedInput';
 import { TextField, TextFieldProps } from '../TextField';
 
 export interface NumberFieldProps extends Omit<TextFieldProps, 'mask' | 'iconLeft' | 'iconRight'> {
@@ -14,7 +15,7 @@ export class NumberField extends Component<NumberFieldProps> {
     allowNegative: false,
   };
 
-  numberMask = createNumberMask({
+  numberMask: Mask = createNumberMask({
     prefix: '',
     includeThousandsSeparator: false,
     decimalLimit: null,

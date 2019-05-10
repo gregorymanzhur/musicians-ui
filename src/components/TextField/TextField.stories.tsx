@@ -2,7 +2,16 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { select } from '@storybook/addon-knobs';
 import { Base, IconTypes } from '..';
-import { TextField, TextFieldVariants, PhoneField, PasswordField, DateField, NumberField } from '.';
+import {
+  TextField,
+  TextFieldVariants,
+  PhoneField,
+  PasswordField,
+  DateField,
+  NumberField,
+  CurrencyField,
+  CurrencyTypes,
+} from '.';
 
 const stories = storiesOf('TextField', module);
 
@@ -107,6 +116,15 @@ stories
       <NumberField
         label="Number field"
         variant={select('variant', Object.values(TextFieldVariants), TextFieldVariants.Outlined )}
+      />
+    </Base>
+  ))
+  .add('Wrappers: Currency field', () => (
+    <Base>
+      <CurrencyField
+        label="Currency field"
+        variant={select('variant', Object.values(TextFieldVariants), TextFieldVariants.Outlined )}
+        currency={select('currency', Object.values(CurrencyTypes), CurrencyTypes.Ruble )}
       />
     </Base>
   ));
