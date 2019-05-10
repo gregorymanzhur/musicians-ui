@@ -11,6 +11,7 @@ import {
   NumberField,
   CurrencyField,
   CurrencyTypes,
+  EmailField,
 } from '.';
 
 const stories = storiesOf('TextField', module);
@@ -125,6 +126,14 @@ stories
         label="Currency field"
         variant={select('variant', Object.values(TextFieldVariants), TextFieldVariants.Outlined )}
         currency={select('currency', Object.values(CurrencyTypes), CurrencyTypes.Ruble )}
+      />
+    </Base>
+  ))
+  .add('Wrappers: Email field', () => (
+    <Base>
+      <EmailField
+        label="Email field"
+        variant={select('variant', Object.values(TextFieldVariants), TextFieldVariants.Outlined )}
       />
     </Base>
   ));
