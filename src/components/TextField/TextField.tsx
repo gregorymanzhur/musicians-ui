@@ -1,7 +1,8 @@
 import React, { Component, ChangeEvent, FocusEvent, KeyboardEvent } from 'react';
+
 import { StandardProps } from '../commonTypes';
 import { Icon, IconProps } from '../Icon';
-import { MaskedInput } from './MaskedInput';
+import { MaskedInput, Mask, Pipe } from './MaskedInput';
 import { Wrapper, InputWrapper, LabelWrapper, IconWrapper } from './styled';
 
 export enum TextFieldVariants {
@@ -17,7 +18,8 @@ export interface TextFieldProps extends StandardProps {
   required?: boolean;
   disabled?: boolean;
   multiline?: boolean;
-  mask?: (string | RegExp)[] | false;
+  mask?: Mask;
+  pipe?: Pipe;
 
   iconLeft?: IconProps;
   iconRight?: IconProps;
@@ -58,14 +60,16 @@ export class TextField extends Component<TextFieldProps, TextFieldState> {
   };
 
   render() {
-    const { onChange, required, mask, ...restProps } = this.props;
+    const { onChange, required, mask, pipe, ...restProps } = this.props;
     const { value } = this.state;
 
     return (
       <Wrapper disabled={restProps.disabled}>
         <MaskedInput
           mask={mask!}
+          pipe={pipe}
           guide={false}
+          keepCharPositions
           onChange={this.handleChange}
           value={value}
           {...restProps}
