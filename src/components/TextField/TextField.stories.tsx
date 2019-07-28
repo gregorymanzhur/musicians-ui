@@ -1,10 +1,9 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { select } from '@storybook/addon-knobs';
-import { Base, IconTypes } from '..';
+import { Base, IconTypes, FieldVariants } from '..';
 import {
   TextField,
-  TextFieldVariants,
   PhoneField,
   PasswordField,
   DateField,
@@ -21,7 +20,7 @@ stories
     <Base>
       <TextField
         label="Base text field"
-        variant={select('variant', Object.values(TextFieldVariants), TextFieldVariants.Outlined )}
+        variant={select('variant', Object.values(FieldVariants), FieldVariants.Outlined )}
       />
     </Base>
   ))
@@ -29,8 +28,8 @@ stories
     <Base>
       <TextField
         label="Base text field"
-        variant={select('variant', Object.values(TextFieldVariants), TextFieldVariants.Outlined )}
-        value="Some text"
+        variant={select('variant', Object.values(FieldVariants), FieldVariants.Outlined )}
+        defaultValue="Some text"
       />
     </Base>
   ))
@@ -38,7 +37,7 @@ stories
     <Base>
       <TextField
         label="Text field with left icon"
-        variant={select('variant', Object.values(TextFieldVariants), TextFieldVariants.Outlined )}
+        variant={select('variant', Object.values(FieldVariants), FieldVariants.Outlined )}
         iconLeft={{ type: IconTypes.FA, title: "FaApple" }}
       />
     </Base>
@@ -47,7 +46,7 @@ stories
     <Base>
       <TextField
         label="Text field with right icon"
-        variant={select('variant', Object.values(TextFieldVariants), TextFieldVariants.Outlined )}
+        variant={select('variant', Object.values(FieldVariants), FieldVariants.Outlined )}
         iconRight={{ type: IconTypes.FA, title: "FaCheck" }}
       />
     </Base>
@@ -56,7 +55,7 @@ stories
     <Base>
       <TextField
         label="Disabled text field"
-        variant={select('variant', Object.values(TextFieldVariants), TextFieldVariants.Outlined )}
+        variant={select('variant', Object.values(FieldVariants), FieldVariants.Outlined )}
         disabled
       />
     </Base>
@@ -65,7 +64,7 @@ stories
     <Base>
       <TextField
         label="Required text field"
-        variant={select('variant', Object.values(TextFieldVariants), TextFieldVariants.Outlined )}
+        variant={select('variant', Object.values(FieldVariants), FieldVariants.Outlined )}
         required
       />
     </Base>
@@ -74,7 +73,7 @@ stories
     <Base>
       <TextField
         label="Multiline text field"
-        variant={select('variant', Object.values(TextFieldVariants), TextFieldVariants.Outlined )}
+        variant={select('variant', Object.values(FieldVariants), FieldVariants.Outlined )}
         multiline
       />
     </Base>
@@ -83,7 +82,7 @@ stories
     <Base>
       <TextField
         label="Masked text field (XXXX-XXXX, when X - digit)"
-        variant={select('variant', Object.values(TextFieldVariants), TextFieldVariants.Outlined )}
+        variant={select('variant', Object.values(FieldVariants), FieldVariants.Outlined )}
         mask={[/\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/,]}
       />
     </Base>
@@ -92,7 +91,7 @@ stories
     <Base>
       <PhoneField
         label="Phone field"
-        variant={select('variant', Object.values(TextFieldVariants), TextFieldVariants.Outlined )}
+        variant={select('variant', Object.values(FieldVariants), FieldVariants.Outlined )}
       />
     </Base>
   ))
@@ -100,7 +99,7 @@ stories
     <Base>
       <PasswordField
         label="Password field"
-        variant={select('variant', Object.values(TextFieldVariants), TextFieldVariants.Outlined )}
+        variant={select('variant', Object.values(FieldVariants), FieldVariants.Outlined )}
       />
     </Base>
   ))
@@ -108,7 +107,7 @@ stories
     <Base>
       <DateField
         label="Date field"
-        variant={select('variant', Object.values(TextFieldVariants), TextFieldVariants.Outlined )}
+        variant={select('variant', Object.values(FieldVariants), FieldVariants.Outlined )}
       />
     </Base>
   ))
@@ -116,7 +115,7 @@ stories
     <Base>
       <NumberField
         label="Number field"
-        variant={select('variant', Object.values(TextFieldVariants), TextFieldVariants.Outlined )}
+        variant={select('variant', Object.values(FieldVariants), FieldVariants.Outlined )}
       />
     </Base>
   ))
@@ -124,7 +123,7 @@ stories
     <Base>
       <CurrencyField
         label="Currency field"
-        variant={select('variant', Object.values(TextFieldVariants), TextFieldVariants.Outlined )}
+        variant={select('variant', Object.values(FieldVariants), FieldVariants.Outlined )}
         currency={select('currency', Object.values(CurrencyTypes), CurrencyTypes.Ruble )}
       />
     </Base>
@@ -133,7 +132,7 @@ stories
     <Base>
       <EmailField
         label="Email field"
-        variant={select('variant', Object.values(TextFieldVariants), TextFieldVariants.Outlined )}
+        variant={select('variant', Object.values(FieldVariants), FieldVariants.Outlined )}
       />
     </Base>
   ));

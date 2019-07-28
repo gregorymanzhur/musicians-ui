@@ -28,10 +28,13 @@
     "@emotion/core": "^10.0.10",
     "@emotion/styled": "^10.0.10",
     "color": "^3.1.1",
+    "downshift": "^3.2.10",
     "emotion-theming": "^10.0.10",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-focus-lock": "^1.19.1",
     "react-icons": "^3.6.1",
+    "react-simple-dropdown": "^3.2.3",
     "react-text-mask": "^5.4.3",
     "text-mask-addons": "^3.8.0"
   }

@@ -1,4 +1,4 @@
-import { ComponentType } from 'react';
+import { ComponentType, Ref } from 'react';
 import ReactMaskedInput, { MaskedInputProps as MaskedInputPropsBroken } from 'react-text-mask';
 import { Omit } from '../../helpers/types';
 
@@ -14,6 +14,7 @@ export type Pipe = (conformedValue: string, config: any) =>
 
 export interface MaskedInputProps extends Omit<MaskedInputPropsBroken, 'mask'> {
   mask: Mask;
+  ref?: Ref<ReactMaskedInput>;
 }
 
 export const MaskedInput = ReactMaskedInput as ComponentType<MaskedInputProps>;

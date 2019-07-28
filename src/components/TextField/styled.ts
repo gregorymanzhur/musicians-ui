@@ -1,6 +1,8 @@
 import { css, styled, Themed } from '../../theme';
+import { Omit } from '../../helpers/types';
+import { FieldVariants } from '../commonTypes';
 import { Box } from '../Box';
-import { TextFieldProps, TextFieldVariants } from './TextField';
+import { TextFieldProps } from './TextField';
 
 export const Wrapper = styled.div<Pick<TextFieldProps, 'disabled'>>`
   position: relative;
@@ -27,20 +29,20 @@ export const LabelWrapper = styled.label<Pick<TextFieldProps, 'variant' | 'requi
   pointer-events: none;
   color: ${p => p.theme.core.palette.grayLighten30};
   background-color: ${p =>
-    p.variant === TextFieldVariants.Filled ? p.theme.core.palette.grayLighten90 : p.theme.core.palette.grayLighten100
+    p.variant === FieldVariants.Filled ? p.theme.core.palette.grayLighten90 : p.theme.core.palette.grayLighten100
   };
   
   ${p => p.required && requiredAsteriskStyle};
 `;
 
-const upperLabelStyle = (props: Pick<TextFieldProps, 'variant' | 'required' | 'iconLeft'> & Themed) => css`
-  top: ${props.variant === TextFieldVariants.Filled ? '1px' : '-7px'};
+const upperLabelStyle = (props: Pick<TextFieldProps, 'variant' | 'required' | 'iconLeft' | 'active'> & Themed) => css`
+  top: ${props.variant === FieldVariants.Filled ? '1px' : '-7px'};
   left: ${props.iconLeft ? '32px' : '9px'};
   font-size: 12px;
   line-height: 16px;
   letter-spacing: 0.4px;
-  padding: ${props.variant === TextFieldVariants.Filled ? '0 3px' : '0 4px'};
-  color: ${props.theme.core.palette.gray};
+  padding: ${props.variant === FieldVariants.Filled ? '0 3px' : '0 4px'};
+  color: ${props.active ? props.theme.core.palette.crimson :  props.theme.core.palette.gray};
 `;
 
 const inputOutlinedStyle = (props: TextFieldProps & Themed) => css`
@@ -50,12 +52,16 @@ const inputOutlinedStyle = (props: TextFieldProps & Themed) => css`
   padding: ${props.multiline ? '10px' : 0} ${props.iconRight ? '35px' : '12px'} 0 ${props.iconLeft ? '35px' : '12px'};
   
   &:hover {
-    border: 1px solid ${props.theme.core.palette.gray};
+    border: 1px solid ${props.active ? props.theme.core.palette.crimson : props.theme.core.palette.gray};
   }
   
   &:focus {
     border: 1px solid ${props.theme.core.palette.crimson};
   }
+  
+  ${props.active && css`
+    border: 1px solid ${props.theme.core.palette.crimson};
+  `};
 `;
 
 const inputFilledStyle = (props: TextFieldProps & Themed) => css`
@@ -78,7 +84,7 @@ const inputFilledStyle = (props: TextFieldProps & Themed) => css`
   }
 `;
 
-export const InputWrapper = styled.input<TextFieldProps & { ref: string & ((inputElement: HTMLElement) => string) }>`
+export const InputWrapper = styled.input<Omit<TextFieldProps, 'onChange'> & { ref: string & ((inputElement: HTMLElement) => string) }>`
   width: 100%;
   height: ${p => p.multiline ? '80px' : '40px'};
   outline: none;
@@ -87,7 +93,7 @@ export const InputWrapper = styled.input<TextFieldProps & { ref: string & ((inpu
   color: ${p => p.theme.core.palette.gray};
   transition: all 0.15s;
   
-  ${p => p.variant === TextFieldVariants.Filled ? inputFilledStyle : inputOutlinedStyle};
+  ${p => p.variant === FieldVariants.Filled ? inputFilledStyle : inputOutlinedStyle};
 
   &:focus ~ label {
     ${upperLabelStyle};
@@ -98,7 +104,7 @@ export const InputWrapper = styled.input<TextFieldProps & { ref: string & ((inpu
     }
   }
   & ~ label {
-    ${p => p.value && upperLabelStyle};
+    ${p => (p.value || p.active) && upperLabelStyle};
   }
 `;
 

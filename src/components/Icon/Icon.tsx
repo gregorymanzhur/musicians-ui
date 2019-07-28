@@ -19,9 +19,9 @@ export interface IconProps extends StandardProps {
   onClick?: (event: MouseEvent<HTMLInputElement>) => void;
 }
 
-export const Icon: FC<IconProps> = ({ type, title, onClick }) => {
+export const Icon: FC<IconProps> = ({ type, title, onClick, name }) => {
   const icons = iconsDict[type];
   const IconComponent = icons[title];
 
-  return <IconComponent onClick={onClick} />;
+  return <IconComponent onClick={onClick} name={name} />;
 };
